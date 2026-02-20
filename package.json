@@ -1,27 +1,60 @@
 {
-  "name": "presearch-mcp-server",
+  "name": "presearch-search-skill",
   "version": "1.0.0",
-  "description": "Production-ready decentralized search for AI agents via Presearch",
-  "type": "module",
+  "description": "Privacy-first decentralized web search for AI agents using Presearch API",
   "main": "presearch_nodejs.js",
+  "type": "module",
   "scripts": {
+    "test": "node test.js",
+    "demo": "node example.js",
     "start": "node presearch_nodejs.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "search": "node presearch_nodejs.js",
+    "lint": "echo 'No linting configured'",
+    "format": "echo 'No formatting configured'"
   },
   "keywords": [
     "presearch",
-    "mcp",
     "search",
+    "privacy",
     "decentralized",
-    "ai",
-    "agent",
-    "crypto",
+    "ai-agents",
+    "web-search",
+    "autonomous-systems",
+    "local-llm",
+    "uncensored",
     "blockchain",
-    "web3"
+    "api",
+    "search-engine",
+    "decentralization",
+    "privacy-first",
+    "ai-tools",
+    "automation"
   ],
-  "author": "NosytLabs",
+  "author": "NosytLabs <collaborate@presearch.com>",
   "license": "MIT",
-  "dependencies": {
-    "node-fetch": "^3.3.2"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NosytLabs/presearch-search-skill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NosytLabs/presearch-search-skill/issues"
+  },
+  "homepage": "https://github.com/NosytLabs/presearch-search-skill#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "files": [
+    "presearch_nodejs.js",
+    "presearch_python.py",
+    "example.py",
+    "README.md",
+    "LICENSE",
+    "SKILL.md",
+    "requirements.txt",
+    "package.json"
+  ],
+  "preferGlobal": false,
+  "private": false
 }
