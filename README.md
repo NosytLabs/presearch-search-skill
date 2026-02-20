@@ -12,6 +12,18 @@ This skill provides a simple, reliable interface for retrieving live internet re
 
 ---
 
+## ⚡ Quick Start
+
+1.  **Get API Key**: [Sign up at Presearch](https://presearch.com/signup?rid=4779685) & email `collaborate@presearch.com` for access.
+2.  **Clone**: `git clone https://github.com/NosytLabs/presearch-search-skill`
+3.  **Run**:
+    ```bash
+    export PRESEARCH_API_KEY="your_key"
+    python3 presearch_python.py "latest AI news"
+    ```
+
+---
+
 ## 📖 Overview
 
 Most AI agents and local language models lack native access to real-time internet search. This skill solves that limitation by connecting agents directly to Presearch, enabling:
@@ -67,13 +79,6 @@ This skill enables powerful agent capabilities:
 4.  **Market Intelligence**: Agents can analyze trends, competitors, and opportunities.
 5.  **Autonomous Decision Making**: Agents can research before executing tasks.
 
-### Example Agent Workflow
-**User goal:** Find profitable SaaS ideas
-1.  Search for trending SaaS markets
-2.  Analyze competitors
-3.  Identify gaps
-4.  Generate business ideas
-
 ## 🔧 Installation & Usage
 
 ### 1. Get an API Key
@@ -102,6 +107,31 @@ python3 presearch_python.py "latest AI agents"
 ```bash
 node presearch_nodejs.js "decentralized search"
 ```
+
+**Advanced Demo:**
+Check out `example.py` for advanced usage (filters, location, pagination).
+```bash
+python3 example.py
+```
+
+## 📋 API Overview
+
+-   **Endpoint**: `https://na-us-1.presearch.com/v1/search`
+-   **Method**: `GET`
+-   **Auth**: Bearer Token
+-   **Docs**: [Official Documentation](https://presearch.io/searchapi)
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `q` | string | ✅ | - | Search query (URL encoded) |
+| `ip` | string | ✅ | 127.0.0.1 | User IP (required by API). Use `127.0.0.1` if unknown. |
+| `location` | string | ❌ | - | JSON string: `{"lat": 37.77, "long": -122.41}` |
+| `lang` | string | ❌ | en-US | Language code (e.g., `en-US`, `de-DE`) |
+| `time` | enum | ❌ | any | `any`, `day`, `week`, `month`, `year` |
+| `page` | integer | ❌ | 1 | Page number (1-100) |
+| `safe` | enum | ❌ | 1 | `1` (strict), `0` (off) |
 
 ## 🌍 Why Decentralized Search?
 

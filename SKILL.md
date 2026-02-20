@@ -1,6 +1,8 @@
 ---
 name: "presearch-search"
-description: "Production-ready decentralized search for AI agents. Privacy-first, uncensored web search via distributed node infrastructure. No tracking, no profiling."
+description: "Production-ready decentralized search for AI agents. Privacy-first, uncensored web search via distributed node infrastructure."
+version: "1.0.0"
+tags: ["search", "privacy", "decentralized", "web", "research"]
 env:
   - PRESEARCH_API_KEY
 primary_env: PRESEARCH_API_KEY
@@ -14,7 +16,7 @@ Enable AI agents to perform real-time decentralized web searches using Presearch
 - **Real-time**: Access current world information.
 - **Privacy-first**: No tracking, no logging, no profiling.
 - **Decentralized**: Powered by community nodes.
-- **Agent-optimized**: Clean JSON responses.
+- **Agent-optimized**: Clean JSON responses including knowledge graphs.
 
 ## 🛠️ Usage
 
@@ -40,28 +42,39 @@ node presearch_nodejs.js "decentralized search"
 **Method:** `GET`  
 **Auth:** Bearer Token via `PRESEARCH_API_KEY`
 
-### Parameters
+### Input Parameters
 
 | Parameter | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `q` | string | ✅ | - | Search query (URL encoded) |
-| `ip` | string | ✅ | 127.0.0.1 | User IP (required by API, safe to mock) |
+| `ip` | string | ✅ | 127.0.0.1 | User IP (required by API). Use `127.0.0.1` if unknown. |
+| `location` | string | ❌ | - | JSON string: `{"lat": 37.77, "long": -122.41}` |
 | `lang` | string | ❌ | en-US | Language code (e.g., `en-US`, `de-DE`) |
-| `time` | string | ❌ | any | `any`, `day`, `week`, `month`, `year` |
-| `page` | string | ❌ | 1 | Page number (1-100) |
-| `safe` | string | ❌ | 1 | `1` (strict), `0` (off) |
+| `time` | enum | ❌ | any | `any`, `day`, `week`, `month`, `year` |
+| `page` | integer | ❌ | 1 | Page number (1-100) |
+| `safe` | enum | ❌ | 1 | `1` (strict), `0` (off) |
 
-### Response Format
+### Output Schema
 ```json
 {
   "data": {
     "standardResults": [
       {
-        "title": "Example Page",
+        "title": "Page Title",
         "link": "https://example.com",
-        "description": "Description of the result..."
+        "description": "Description of the result...",
+        "favicon": "https://example.com/favicon.ico"
       }
     ],
+    "infoSection": {
+      "title": "Knowledge Graph Title",
+      "description": "Detailed entity information...",
+      "links": [{"title": "Source", "url": "..."}]
+    },
+    "specialSections": {
+      "crypto": {},
+      "weather": {}
+    },
     "pagination": {
       "current_page": 1,
       "has_next": true
