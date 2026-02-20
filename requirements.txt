@@ -1,1 +1,16 @@
-requests>=2.31.0
+# Presearch Search API - Python Dependencies
+# Compatible with Python 3.7+
+
+# Core HTTP library for API requests
+requests>=2.25.0
+
+# Dataclasses for older Python versions (< 3.7)
+dataclasses>=0.6;python_version<"3.7"
+
+# Optional dependencies for enhanced functionality
+# Uncomment if needed:
+# python-dotenv>=0.19.0  # For .env file support
+# aiohttp>=3.8.0         # For async operations
+# pytest>=6.0.0          # For testing
+# black>=22.0.0          # For code formatting
+# flake8>=4.0.0          # For linting
