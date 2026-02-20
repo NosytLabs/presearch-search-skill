@@ -3,7 +3,7 @@ import os
 import time
 import json
 import requests
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from dataclasses import dataclass, asdict
 
 @dataclass
@@ -17,6 +17,8 @@ class SearchResponse:
     results: List[SearchResult]
     current_page: int
     has_next: bool
+    info_section: Optional[Dict[str, Any]] = None
+    special_sections: Optional[Dict[str, Any]] = None
 
 class PresearchSkill:
     """
@@ -45,7 +47,7 @@ class PresearchSkill:
         self.last_request_time = time.time()
     
     def search(self, query: str, ip: str = "127.0.0.1", lang: str = "en-US", time_filter: str = "any", 
-               page: int = 1, safe: str = "1") -> SearchResponse:
+               page: int = 1, safe: str = "1", location: Optional[str] = None) -> SearchResponse:
         """
         Execute a search query.
         """
@@ -60,6 +62,9 @@ class PresearchSkill:
             "safe": safe
         }
         
+        if location:
+            params["location"] = location
+        
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json",
@@ -71,13 +76,16 @@ class PresearchSkill:
             
             if response.status_code == 429:
                 time.sleep(2) # Simple backoff
-                return self.search(query, ip, lang, time_filter, page, safe)
+                return self.search(query, ip, lang, time_filter, page, safe, location)
                 
             response.raise_for_status()
             
             data = response.json()
-            standard_results = data.get("data", {}).get("standardResults", [])
-            pagination = data.get("data", {}).get("pagination", {})
+            resp_data = data.get("data", {})
+            standard_results = resp_data.get("standardResults", [])
+            pagination = resp_data.get("pagination", {})
+            info_section = resp_data.get("infoSection")
+            special_sections = resp_data.get("specialSections")
             
             results = [
                 SearchResult(
@@ -91,7 +99,9 @@ class PresearchSkill:
             return SearchResponse(
                 results=results,
                 current_page=pagination.get("current_page", 1),
-                has_next=pagination.get("has_next", False)
+                has_next=pagination.get("has_next", False),
+                info_section=info_section,
+                special_sections=special_sections
             )
             
         except requests.exceptions.RequestException as e:
@@ -117,6 +127,8 @@ if __name__ == "__main__":
             # Print JSON output for agent consumption
             output = {
                 "results": [asdict(r) for r in response.results],
+                "info_section": response.info_section,
+                "special_sections": response.special_sections,
                 "pagination": {
                     "current_page": response.current_page,
                     "has_next": response.has_next

@@ -31,8 +31,9 @@ export class PresearchSkill {
    * @param {string} [options.time] - Time filter (default: any)
    * @param {number} [options.page] - Page number (default: 1)
    * @param {string} [options.safe] - Safe search (default: 1)
+   * @param {string} [options.location] - Location JSON string (e.g. '{"lat":1,"long":1}')
    */
-  async search({ query, ip = '127.0.0.1', lang = 'en-US', time = 'any', page = 1, safe = '1' }) {
+  async search({ query, ip = '127.0.0.1', lang = 'en-US', time = 'any', page = 1, safe = '1', location = null }) {
     await this._rateLimit();
 
     const params = new URLSearchParams({
@@ -43,6 +44,10 @@ export class PresearchSkill {
       page: page.toString(),
       safe: safe
     });
+    
+    if (location) {
+      params.append('location', location);
+    }
 
     const url = `${this.baseUrl}?${params.toString()}`;
 
@@ -66,7 +71,7 @@ export class PresearchSkill {
             // Rate limit hit, backoff and retry
             await new Promise(r => setTimeout(r, 2000));
             try {
-              resolve(await this.search({ query, ip, lang, time, page, safe }));
+              resolve(await this.search({ query, ip, lang, time, page, safe, location }));
             } catch (e) {
               reject(e);
             }
@@ -80,8 +85,11 @@ export class PresearchSkill {
 
           try {
             const json = JSON.parse(data);
-            const standardResults = json.data?.standardResults || [];
-            const pagination = json.data?.pagination || { current_page: 1, has_next: false };
+            const respData = json.data || {};
+            const standardResults = respData.standardResults || [];
+            const pagination = respData.pagination || { current_page: 1, has_next: false };
+            const infoSection = respData.infoSection;
+            const specialSections = respData.specialSections;
 
             resolve({
               results: standardResults.map(r => ({
@@ -89,6 +97,8 @@ export class PresearchSkill {
                 link: r.link || '',
                 description: r.description || ''
               })),
+              infoSection,
+              specialSections,
               current_page: pagination.current_page || 1,
               has_next: pagination.has_next || false
             });

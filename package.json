@@ -1,0 +1,27 @@
+{
+  "name": "presearch-mcp-server",
+  "version": "1.0.0",
+  "description": "Production-ready decentralized search for AI agents via Presearch",
+  "type": "module",
+  "main": "presearch_nodejs.js",
+  "scripts": {
+    "start": "node presearch_nodejs.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "presearch",
+    "mcp",
+    "search",
+    "decentralized",
+    "ai",
+    "agent",
+    "crypto",
+    "blockchain",
+    "web3"
+  ],
+  "author": "NosytLabs",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
