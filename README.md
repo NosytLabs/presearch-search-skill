@@ -1,43 +1,45 @@
 # Presearch Skill.md
 
-Production-ready decentralized search for AI agents. Privacy-first, uncensored web search via distributed node infrastructure.
+[![Presearch](https://assets.presearch.com/referral/ban-5.jpg)](https://presearch.com/signup?rid=4779685)
 
-## 🚀 What is This?
+**Production-ready decentralized search for AI agents.** Privacy-first, uncensored web search via a distributed node infrastructure.
 
-This is a **clean SKILL.md implementation** for the Presearch Search API. It's designed to work with AI agents, MCP servers, and any system that supports the SKILL.md standard.
+## 🚀 Why Presearch?
 
-- **No complex dependencies**
-- **No bloated code**
-- **Just the essential API documentation**
-- **Ready for AI agent integration**
+Presearch is a decentralized search engine that respects your privacy. Unlike traditional search engines, Presearch:
+
+-   **🚫 No Tracking**: Does not store your search history or IP address.
+-   **🔓 Uncensored**: Results are not filtered or biased by corporate agendas.
+-   **🌍 Decentralized**: Powered by a community of thousands of nodes running on independent hardware.
+-   **🛡️ Encrypted**: All search traffic is end-to-end encrypted.
 
 ## 📋 API Overview
 
-### Authentication
-Get your API key from [presearch.com](https://presearch.com) dashboard.
+-   **Endpoint**: `https://na-us-1.presearch.com/v1/search`
+-   **Method**: `GET`
+-   **Auth**: Bearer Token
+-   **Docs**: [Official Documentation](https://presearch.io/searchapi)
 
-```http
-Authorization: Bearer YOUR_API_KEY_HERE
-```
+## 🔑 How to Get an API Key
 
-### Core Parameters
+1.  **Sign Up**: Create a free account using this [Referral Link](https://presearch.com/signup?rid=4779685).
+2.  **Request Access**: Send an email to `collaborate@presearch.com` requesting API access for your account.
+3.  **Generate Key**: Once approved, navigate to your dashboard to generate your API key.
 
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `q` | string | ✅ | - | Search query |
-| `lang` | string | ❌ | en-US | Language code |
-| `time` | string | ❌ | any | any, day, week, month, year |
-| `page` | string | ❌ | 1 | Page number |
-| `safe` | string | ❌ | 1 | Safe search |
+## 💰 Pricing & Rate Limits
 
-### Rate Limiting
-- **100 requests per minute**
-- Automatic retry with exponential backoff
-- Built-in error handling for 429 responses
+| Plan | Queries / Second | Queries / Month | Cost |
+| :--- | :--- | :--- | :--- |
+| **Free** | 1 QPS | 2,500 | $0 |
+| **P1** | 30 QPS | 5,000 | Paid |
+| **P2** | 60 QPS | 5,000 | Paid |
+| **Enterprise** | Unlimited | Unlimited | Custom |
+
+> **Note**: This skill implementation includes built-in rate limiting and exponential backoff to handle the Free tier's 1 QPS limit gracefully.
 
 ## 🔧 Implementation Examples
 
-### Python (with Context Manager)
+### Python
 ```python
 import os
 from presearch_python import PresearchSkill
@@ -49,7 +51,7 @@ with PresearchSkill(api_key=api_key) as skill:
         print(f"{result.title}: {result.link}")
 ```
 
-### Node.js (Async/Await)
+### Node.js
 ```javascript
 import { PresearchSkill } from './presearch_nodejs.js';
 
@@ -64,48 +66,12 @@ console.log(results.results);
 
 ## 🤖 AI Agent Integration
 
-### For Trae / Claude / Cursor Users
+This repository adheres to the **SKILL.md** standard, making it instantly usable by AI agents like Trae, Claude, and Cursor.
 
-This repository provides a **clean SKILL.md file** that teaches AI agents how to:
-
-1. **Authenticate** with Bearer tokens
-2. **Search** with proper parameter formatting
-3. **Handle errors** gracefully (401, 402, 422, 429)
-4. **Respect rate limits** (100 req/min)
-5. **Parse responses** correctly
-
-### MCP Server Integration
-
-```python
-# Example MCP tool definition
-def search_tool(query: str, lang: str = "en-US", time_filter: str = "any"):
-    """Search the web using Presearch API"""
-    with PresearchSkill(api_key=os.getenv("PRESEARCH_API_KEY")) as skill:
-        return skill.search(query, lang=lang, time_filter=time_filter)
-```
-
-## 🔒 Privacy Features
-
-- **No tracking** - Zero user profiling or data collection
-- **Decentralized** - Powered by independent nodes worldwide
-- **Encrypted** - All traffic uses HTTPS encryption
-- **Uncensored** - Access information without restrictions
-
-## 🎯 Error Handling
-
-| Status | Error | Solution |
-|--------|--------|----------|
-| 401 | Invalid API key | Get key from [presearch.com](https://presearch.com) |
-| 402 | Payment required | Add credits to your account |
-| 422 | Invalid parameters | Check parameter format |
-| 429 | Rate limit exceeded | Wait and retry (100 req/min) |
-
-## 📚 Resources
-
-- **[Presearch Website](https://presearch.com)** - Get your API key
-- **[Presearch API Docs](https://presearch-search-api.readme.io)** - Full API reference
-- **[Privacy Policy](https://presearch.com/privacy)** - Learn about privacy protections
-- **[Node Network](https://presearch.com/nodes)** - Join the decentralized network
+1.  **Context**: The agent reads `SKILL.md` to understand the API contract.
+2.  **Auth**: It knows to use the `Authorization: Bearer <key>` header.
+3.  **Constraints**: It respects the `100 requests/minute` (approx 1.6 QPS) guideline, with fallback logic for strict 1 QPS limits.
+4.  **Error Handling**: It knows how to interpret `401`, `402`, and `429` errors.
 
 ## 📄 License
 
@@ -113,4 +79,4 @@ MIT License - Use freely in your AI agents and MCP servers.
 
 ---
 
-**Clean. Simple. Production-ready.** This is Presearch Skill.md.
+[**Sign up for Presearch**](https://presearch.com/signup?rid=4779685) to start searching privately.
