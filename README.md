@@ -2,6 +2,8 @@
 
 [![Presearch](https://assets.presearch.com/referral/ban-5.jpg)](https://presearch.com/signup?rid=4779685)
 
+> **Flagship Prompt:** "Search for latest advancements in autonomous AI agents"
+
 **Production-ready decentralized search for AI agents.** Privacy-first, uncensored web search via a distributed node infrastructure.
 
 ## 🚀 Why Presearch?
@@ -12,6 +14,22 @@ Presearch is a decentralized search engine that respects your privacy. Unlike tr
 -   **🔓 Uncensored**: Results are not filtered or biased by corporate agendas.
 -   **🌍 Decentralized**: Powered by a community of thousands of nodes running on independent hardware.
 -   **🛡️ Encrypted**: All search traffic is end-to-end encrypted.
+
+## 💡 Use Cases
+
+This skill enables AI agents to perform real-time decentralized web searches:
+
+-   **Real-time internet access**: Give your agent current knowledge beyond its training cutoff.
+-   **Autonomous research**: Agents can research complex topics without user intervention.
+-   **Programming assistance**: Find latest documentation, library updates, and bug fixes.
+-   **Market intelligence**: Gather data on competitors, trends, and news.
+-   **Crypto & Blockchain**: Research new projects and market movements without being tracked.
+
+### Example Prompts
+-   *"Search for latest AI agent frameworks"*
+-   *"Search for GitHub repositories for autonomous agents"*
+-   *"Search for trending SaaS startup ideas"*
+-   *"Search for solutions to Python errors"*
 
 ## 📋 API Overview
 
@@ -70,8 +88,8 @@ This repository adheres to the **SKILL.md** standard, making it instantly usable
 
 1.  **Context**: The agent reads `SKILL.md` to understand the API contract.
 2.  **Auth**: It knows to use the `Authorization: Bearer <key>` header.
-3.  **Constraints**: It respects the `100 requests/minute` (approx 1.6 QPS) guideline, with fallback logic for strict 1 QPS limits.
-4.  **Error Handling**: It knows how to interpret `401`, `402`, and `429` errors.
+3.  **Constraints**: It respects the `100 requests/minute` (approx 1.6 QPS) guideline.
+4.  **Error Handling**: It knows how to interpret `401`, `402`, `422` (invalid params), and `429` errors.
 
 ## 📄 License
 

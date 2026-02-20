@@ -37,6 +37,7 @@ Authorization: Bearer YOUR_API_KEY_HERE
 | Parameter | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `q` | string | ✅ | - | Search query (URL encoded) |
+| `ip` | string | ✅ | - | User IP (e.g., `127.0.0.1` if unknown) |
 | `lang` | string | ❌ | en-US | Language code (e.g., `en-US`, `de-DE`) |
 | `time` | string | ❌ | any | `any`, `day`, `week`, `month`, `year` |
 | `page` | string | ❌ | 1 | Page number for pagination |
@@ -79,7 +80,10 @@ import time
 def search_presearch(query, api_key):
     url = "https://na-us-1.presearch.com/v1/search"
     headers = {"Authorization": f"Bearer {api_key}"}
-    params = {"q": query}
+    params = {
+        "q": query,
+        "ip": "127.0.0.1" # Required
+    }
     
     try:
         response = requests.get(url, headers=headers, params=params)
@@ -95,7 +99,7 @@ def search_presearch(query, api_key):
 ### Node.js
 ```javascript
 async function searchPresearch(query, apiKey) {
-  const url = `https://na-us-1.presearch.com/v1/search?q=${encodeURIComponent(query)}`;
+  const url = `https://na-us-1.presearch.com/v1/search?q=${encodeURIComponent(query)}&ip=127.0.0.1`;
   const response = await fetch(url, {
     headers: { 'Authorization': `Bearer ${apiKey}` }
   });
