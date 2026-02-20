@@ -1,4 +1,6 @@
 import https from 'https';
+import { fileURLToPath } from 'url';
+import process from 'process';
 
 /**
  * PresearchSkill - Production-ready Node.js client
@@ -103,4 +105,27 @@ export class PresearchSkill {
       req.end();
     });
   }
+}
+
+// CLI Support
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const query = process.argv[2];
+  if (!query) {
+    console.error('Usage: node presearch_nodejs.js <query>');
+    process.exit(1);
+  }
+  
+  const apiKey = process.env.PRESEARCH_API_KEY;
+  if (!apiKey) {
+    console.error('Error: PRESEARCH_API_KEY environment variable not set.');
+    process.exit(1);
+  }
+
+  const skill = new PresearchSkill(apiKey);
+  skill.search({ query })
+    .then(results => console.log(JSON.stringify(results, null, 2)))
+    .catch(err => {
+      console.error('Error:', err.message);
+      process.exit(1);
+    });
 }

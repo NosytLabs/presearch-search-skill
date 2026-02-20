@@ -1,7 +1,10 @@
+import sys
+import os
 import time
+import json
 import requests
 from typing import List, Optional
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 
 @dataclass
 class SearchResult:
@@ -93,3 +96,34 @@ class PresearchSkill:
             
         except requests.exceptions.RequestException as e:
             raise Exception(f"Presearch API Error: {e}")
+
+if __name__ == "__main__":
+    # CLI Usage: python3 presearch_python.py "search query"
+    if len(sys.argv) < 2:
+        print("Usage: python3 presearch_python.py <query>")
+        sys.exit(1)
+        
+    api_key = os.getenv("PRESEARCH_API_KEY")
+    if not api_key:
+        print("Error: PRESEARCH_API_KEY environment variable not set.")
+        sys.exit(1)
+        
+    query = sys.argv[1]
+    
+    try:
+        with PresearchSkill(api_key) as skill:
+            response = skill.search(query)
+            
+            # Print JSON output for agent consumption
+            output = {
+                "results": [asdict(r) for r in response.results],
+                "pagination": {
+                    "current_page": response.current_page,
+                    "has_next": response.has_next
+                }
+            }
+            print(json.dumps(output, indent=2))
+            
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)

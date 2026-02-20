@@ -1,99 +1,137 @@
-# Presearch Skill.md
+# Decentralized Search Skill for AI Agents
 
 [![Presearch](https://assets.presearch.com/referral/ban-5.jpg)](https://presearch.com/signup?rid=4779685)
 
 > **Flagship Prompt:** "Search for latest advancements in autonomous AI agents"
 
-**Production-ready decentralized search for AI agents.** Privacy-first, uncensored web search via a distributed node infrastructure.
+**Enable AI agents, local LLMs, and autonomous systems to perform real-time decentralized web searches using Presearch.**
 
-## 🚀 Why Presearch?
+This skill provides a simple, reliable interface for retrieving live internet results, allowing agents to access current information beyond their training data.
 
-Presearch is a decentralized search engine that respects your privacy. Unlike traditional search engines, Presearch:
+[**View on ClawHub**](https://clawhub.ai/u/NosytLabs)
 
--   **🚫 No Tracking**: Does not store your search history or IP address.
--   **🔓 Uncensored**: Results are not filtered or biased by corporate agendas.
--   **🌍 Decentralized**: Powered by a community of thousands of nodes running on independent hardware.
--   **🛡️ Encrypted**: All search traffic is end-to-end encrypted.
+---
 
-## 💡 Use Cases
+## 📖 Overview
 
-This skill enables AI agents to perform real-time decentralized web searches:
+Most AI agents and local language models lack native access to real-time internet search. This skill solves that limitation by connecting agents directly to Presearch, enabling:
 
--   **Real-time internet access**: Give your agent current knowledge beyond its training cutoff.
--   **Autonomous research**: Agents can research complex topics without user intervention.
--   **Programming assistance**: Find latest documentation, library updates, and bug fixes.
--   **Market intelligence**: Gather data on competitors, trends, and news.
--   **Crypto & Blockchain**: Research new projects and market movements without being tracked.
+-   **Real-time web search**
+-   **Autonomous research**
+-   **Live data retrieval**
+-   **Technical documentation discovery**
+-   **Market and business intelligence**
 
-### Example Prompts
--   *"Search for latest AI agent frameworks"*
--   *"Search for GitHub repositories for autonomous agents"*
--   *"Search for trending SaaS startup ideas"*
--   *"Search for solutions to Python errors"*
+This allows agents to operate with current, real-world knowledge while preserving privacy through decentralized infrastructure.
 
-## 📋 API Overview
+## ✨ Features
 
--   **Endpoint**: `https://na-us-1.presearch.com/v1/search`
--   **Method**: `GET`
--   **Auth**: Bearer Token
--   **Docs**: [Official Documentation](https://presearch.io/searchapi)
+-   **Real-time decentralized web search**
+-   **Agent-compatible structured responses**
+-   **Lightweight and fast integration**
+-   **No centralized search dependency**
+-   **Compatible with autonomous agent frameworks**
+-   **Works with local LLMs and cloud agents**
 
-## 🔑 How to Get an API Key
+## 💡 Example Prompts
 
-1.  **Sign Up**: Create a free account using this [Referral Link](https://presearch.com/signup?rid=4779685).
-2.  **Request Access**: Send an email to `collaborate@presearch.com` requesting API access for your account.
-3.  **Generate Key**: Once approved, navigate to your dashboard to generate your API key.
+These prompts demonstrate how agents can use the skill:
 
-## 💰 Pricing & Rate Limits
+### General Search
+-   *"Search for latest advancements in autonomous AI agents"*
+-   *"Search for official documentation for FastAPI Python framework"*
 
-| Plan | Queries / Second | Queries / Month | Cost |
-| :--- | :--- | :--- | :--- |
-| **Free** | 1 QPS | 2,500 | $0 |
-| **P1** | 30 QPS | 5,000 | Paid |
-| **P2** | 60 QPS | 5,000 | Paid |
-| **Enterprise** | Unlimited | Unlimited | Custom |
+### Programming Assistance
+-   *"Search for how to fix Python ModuleNotFoundError requests"*
+-   *"Search for GitHub repositories for local LLM agents"*
 
-> **Note**: This skill implementation includes built-in rate limiting and exponential backoff to handle the Free tier's 1 QPS limit gracefully.
+### Autonomous Research
+-   *"Search for trending SaaS startup ideas in 2026"*
+-   *"Search for best open-source AI agent frameworks"*
 
-## 🔧 Implementation Examples
+### Crypto and Blockchain
+-   *"Search for latest Solana ecosystem projects"*
+-   *"Search for Pump.fun token launch tutorial"*
 
-### Python
-```python
-import os
-from presearch_python import PresearchSkill
+### Technology and Market Intelligence
+-   *"Search for latest NVIDIA GPU releases"*
+-   *"Search for competitors of Presearch search engine"*
 
-api_key = os.getenv("PRESEARCH_API_KEY")
-with PresearchSkill(api_key=api_key) as skill:
-    results = skill.search("decentralized AI", lang="en-US", time_filter="week")
-    for result in results.results:
-        print(f"{result.title}: {result.link}")
+## 🚀 Use Cases
+
+This skill enables powerful agent capabilities:
+
+1.  **Autonomous AI Research**: Agents can gather real-time information from the internet.
+2.  **Coding Assistants**: Agents can find documentation, debug errors, and locate resources.
+3.  **Local LLM Internet Access**: Local models gain real-time search capabilities.
+4.  **Market Intelligence**: Agents can analyze trends, competitors, and opportunities.
+5.  **Autonomous Decision Making**: Agents can research before executing tasks.
+
+### Example Agent Workflow
+**User goal:** Find profitable SaaS ideas
+1.  Search for trending SaaS markets
+2.  Analyze competitors
+3.  Identify gaps
+4.  Generate business ideas
+
+## 🔧 Installation & Usage
+
+### 1. Get an API Key
+Sign up at [Presearch.com](https://presearch.com/signup?rid=4779685) and request API access (`collaborate@presearch.com`).
+
+### 2. Install the Skill
+Clone the repository:
+```bash
+git clone https://github.com/NosytLabs/presearch-search-skill
+cd presearch-search-skill
 ```
 
-### Node.js
-```javascript
-import { PresearchSkill } from './presearch_nodejs.js';
-
-const skill = new PresearchSkill(process.env.PRESEARCH_API_KEY);
-const results = await skill.search({ 
-  query: 'decentralized AI',
-  lang: 'en-US',
-  time: 'week'
-});
-console.log(results.results);
+### 3. Configure Environment
+Set your API key:
+```bash
+export PRESEARCH_API_KEY="your_api_key_here"
 ```
 
-## 🤖 AI Agent Integration
+### 4. Run the Skill
+**Python:**
+```bash
+python3 presearch_python.py "latest AI agents"
+```
 
-This repository adheres to the **SKILL.md** standard, making it instantly usable by AI agents like Trae, Claude, and Cursor.
+**Node.js:**
+```bash
+node presearch_nodejs.js "decentralized search"
+```
 
-1.  **Context**: The agent reads `SKILL.md` to understand the API contract.
-2.  **Auth**: It knows to use the `Authorization: Bearer <key>` header.
-3.  **Constraints**: It respects the `100 requests/minute` (approx 1.6 QPS) guideline.
-4.  **Error Handling**: It knows how to interpret `401`, `402`, `422` (invalid params), and `429` errors.
+## 🌍 Why Decentralized Search?
+
+Using Presearch provides:
+-   **Open and decentralized infrastructure**
+-   **No restrictive API barriers**
+-   **Reliable and consistent search access**
+-   **Agent-friendly integration**
+
+This makes it ideal for autonomous systems that prioritize privacy and censorship resistance.
+
+## 🤝 Compatibility
+
+This skill works with:
+-   Autonomous AI agents
+-   Local LLM frameworks
+-   Agent orchestration systems
+-   Custom AI assistants
+-   Automation workflows
+
+## 🔮 Future Improvements
+
+-   Structured result parsing
+-   Multi-query execution
+-   Result ranking optimization
+-   Integration with agent memory systems
 
 ## 📄 License
 
-MIT License - Use freely in your AI agents and MCP servers.
+MIT License
 
 ---
 

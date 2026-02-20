@@ -1,58 +1,65 @@
 ---
 name: "presearch-search"
 description: "Production-ready decentralized search for AI agents. Privacy-first, uncensored web search via distributed node infrastructure. No tracking, no profiling."
+env:
+  - PRESEARCH_API_KEY
+primary_env: PRESEARCH_API_KEY
 ---
 
-# Presearch Search API
+# Presearch Search API Skill
 
-**Endpoint:** `https://na-us-1.presearch.com/v1/search`  
-**Method:** GET  
-**Auth:** Bearer Token  
-**Docs:** [https://presearch.io/searchapi](https://presearch.io/searchapi)
+Enable AI agents to perform real-time decentralized web searches using Presearch. This skill provides a simple, reliable interface for retrieving live internet results, allowing agents to access current information beyond their training data.
 
-## 🚀 Getting Started
-To get an API key:
-1.  **Sign Up**: Create an account via [Referral Link](https://presearch.com/signup?rid=4779685)
-2.  **Request Access**: Email `collaborate@presearch.com` to enable API access.
-3.  **Dashboard**: Generate your key in the user dashboard.
+## 🚀 Features
+- **Real-time**: Access current world information.
+- **Privacy-first**: No tracking, no logging, no profiling.
+- **Decentralized**: Powered by community nodes.
+- **Agent-optimized**: Clean JSON responses.
 
-## ⚡ Rate Limits & Plans
+## 🛠️ Usage
 
-| Plan | Queries / Second | Queries / Month | Cost |
-| :--- | :--- | :--- | :--- |
-| **Free** | 1 QPS | 2,500 | $0 |
-| **P1** | 30 QPS | 5,000 | Paid |
-| **P2** | 60 QPS | 5,000 | Paid |
-| **Enterprise** | Unlimited | Unlimited | Custom |
-
-> **Note for Agents:** By default, assume the **Free Plan** (1 request/second) unless configured otherwise. Implement exponential backoff for `429 Too Many Requests`.
-
-## Authentication
-```http
-Authorization: Bearer YOUR_API_KEY_HERE
+### Python
+```bash
+python3 presearch_python.py "latest AI news"
 ```
 
-## Parameters
+### Node.js
+```bash
+node presearch_nodejs.js "decentralized search"
+```
+
+## ⚙️ Configuration
+
+| Variable | Description | Required |
+| :--- | :--- | :--- |
+| `PRESEARCH_API_KEY` | Your API Key from [presearch.com](https://presearch.com/signup?rid=4779685) | ✅ |
+
+## 📡 API Specification
+
+**Endpoint:** `https://na-us-1.presearch.com/v1/search`  
+**Method:** `GET`  
+**Auth:** Bearer Token via `PRESEARCH_API_KEY`
+
+### Parameters
 
 | Parameter | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `q` | string | ✅ | - | Search query (URL encoded) |
-| `ip` | string | ✅ | - | User IP (e.g., `127.0.0.1` if unknown) |
+| `ip` | string | ✅ | 127.0.0.1 | User IP (required by API, safe to mock) |
 | `lang` | string | ❌ | en-US | Language code (e.g., `en-US`, `de-DE`) |
 | `time` | string | ❌ | any | `any`, `day`, `week`, `month`, `year` |
-| `page` | string | ❌ | 1 | Page number for pagination |
+| `page` | string | ❌ | 1 | Page number (1-100) |
 | `safe` | string | ❌ | 1 | `1` (strict), `0` (off) |
 
-## Response Schema
+### Response Format
 ```json
 {
   "data": {
     "standardResults": [
       {
-        "title": "Page Title",
-        "link": "https://example.com/page",
-        "description": "A brief summary of the page content...",
-        "favicon": "https://example.com/favicon.ico"
+        "title": "Example Page",
+        "link": "https://example.com",
+        "description": "Description of the result..."
       }
     ],
     "pagination": {
@@ -63,58 +70,17 @@ Authorization: Bearer YOUR_API_KEY_HERE
 }
 ```
 
-## Error Codes
-- **401 Unauthorized**: Invalid API key. Check your Bearer token.
-- **402 Payment Required**: Plan limit reached or credits exhausted.
-- **422 Unprocessable Entity**: Invalid parameters (e.g., missing `q`).
-- **429 Too Many Requests**: Rate limit exceeded ( > 1 req/sec for Free tier).
-- **5xx Server Error**: Presearch node network issue. Retry with backoff.
+## ⚡ Rate Limits
+- **Free Tier**: 1 query/second (60/min).
+- **Paid Tiers**: Up to 60+ queries/second.
+- **Note**: This skill implements exponential backoff for `429` errors.
 
-## Usage Examples
+## 🧪 Example Prompts
+- "Search for latest advancements in autonomous AI agents"
+- "Search for official documentation for FastAPI"
+- "Search for solutions to Python ModuleNotFoundError"
+- "Search for trending SaaS startup ideas in 2026"
+- "Search for latest Solana ecosystem projects"
 
-### Python
-```python
-import requests
-import time
-
-def search_presearch(query, api_key):
-    url = "https://na-us-1.presearch.com/v1/search"
-    headers = {"Authorization": f"Bearer {api_key}"}
-    params = {
-        "q": query,
-        "ip": "127.0.0.1" # Required
-    }
-    
-    try:
-        response = requests.get(url, headers=headers, params=params)
-        if response.status_code == 429:
-            time.sleep(1) # Backoff for rate limit
-            return search_presearch(query, api_key)
-        response.raise_for_status()
-        return response.json()
-    except Exception as e:
-        return {"error": str(e)}
-```
-
-### Node.js
-```javascript
-async function searchPresearch(query, apiKey) {
-  const url = `https://na-us-1.presearch.com/v1/search?q=${encodeURIComponent(query)}&ip=127.0.0.1`;
-  const response = await fetch(url, {
-    headers: { 'Authorization': `Bearer ${apiKey}` }
-  });
-  
-  if (response.status === 429) {
-    await new Promise(r => setTimeout(r, 1000));
-    return searchPresearch(query, apiKey);
-  }
-  
-  return await response.json();
-}
-```
-
-## 🔒 Privacy & Decentralization
-- **No Tracking**: Your IP address is removed; no search history is stored.
-- **Uncensored**: Results are aggregated from a decentralized network of independent nodes.
-- **Encrypted**: All traffic is SSL encrypted to protect against eavesdropping.
-- **No Profiling**: Presearch does not build user profiles or retarget ads.
+## 📜 License
+MIT License
