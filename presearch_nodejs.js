@@ -3,7 +3,7 @@ import { fileURLToPath } from 'url';
 import process from 'process';
 
 /**
- * PresearchSkill - Production-ready Node.js client
+ * Experimental Node.js client for the historical Presearch search endpoint.
  */
 export class PresearchSkill {
   constructor(apiKey) {
@@ -66,18 +66,8 @@ export class PresearchSkill {
           data += chunk;
         });
 
-        res.on('end', async () => {
-          if (res.statusCode === 429) {
-            // Rate limit hit, backoff and retry
-            await new Promise(r => setTimeout(r, 2000));
-            try {
-              resolve(await this.search({ query, ip, lang, time, page, safe, location }));
-            } catch (e) {
-              reject(e);
-            }
-            return;
-          }
-
+        res.on('error', reject);
+        res.on('end', () => {
           if (res.statusCode !== 200) {
             reject(new Error(`Presearch API Error: ${res.statusCode} - ${data}`));
             return;
@@ -112,6 +102,7 @@ export class PresearchSkill {
         reject(new Error(`Network error: ${e.message}`));
       });
 
+      req.setTimeout(15000, () => req.destroy(new Error('Request timed out')));
       req.end();
     });
   }

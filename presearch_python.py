@@ -22,8 +22,7 @@ class SearchResponse:
 
 class PresearchSkill:
     """
-    Production-ready Presearch API client for AI agents.
-    Implements rate limiting and exponential backoff.
+    Experimental client for the historical Presearch search endpoint.
     """
     
     def __init__(self, api_key: str):
@@ -72,13 +71,13 @@ class PresearchSkill:
         }
         
         try:
-            response = requests.get(self.base_url, params=params, headers=headers)
-            
-            if response.status_code == 429:
-                time.sleep(2) # Simple backoff
-                return self.search(query, ip, lang, time_filter, page, safe, location)
-                
+            response = requests.get(
+                self.base_url, params=params, headers=headers,
+                timeout=(5, 15), allow_redirects=False,
+            )
             response.raise_for_status()
+            if 300 <= response.status_code < 400:
+                raise requests.exceptions.HTTPError(f"Unexpected redirect: {response.status_code}")
             
             data = response.json()
             resp_data = data.get("data", {})
