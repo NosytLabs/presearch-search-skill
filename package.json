@@ -5,12 +5,9 @@
   "main": "presearch_nodejs.js",
   "type": "module",
   "scripts": {
-    "test": "node test.js",
-    "demo": "node example.js",
+    "test": "node --test tests/node.test.js",
     "start": "node presearch_nodejs.js",
-    "search": "node presearch_nodejs.js",
-    "lint": "echo 'No linting configured'",
-    "format": "echo 'No formatting configured'"
+    "search": "node presearch_nodejs.js"
   },
   "keywords": [
     "presearch",
@@ -41,7 +38,7 @@
   },
   "homepage": "https://github.com/NosytLabs/presearch-search-skill#readme",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {},
   "devDependencies": {},
